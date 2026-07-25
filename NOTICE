@@ -1,0 +1,19 @@
+nanoclaw-matrix-e2ee
+Copyright (c) 2026 JakiCuk
+
+This product includes software derived from NanoClaw
+(https://github.com/nanocoai/nanoclaw), Copyright (c) 2026 Gavriel,
+licensed under the MIT License. Specifically, the adapter is written against
+NanoClaw's ChannelAdapter interface and derives its channel defaults and
+overall structure from that project.
+
+Runtime dependencies, not redistributed here:
+
+  matrix-bot-sdk                        MIT
+  https://github.com/turt2live/matrix-bot-sdk
+
+  @matrix-org/matrix-sdk-crypto-nodejs  Apache-2.0
+  https://github.com/matrix-org/matrix-rust-sdk-crypto-nodejs
+
+Both licenses are compatible with the MIT License under which this project is
+distributed.

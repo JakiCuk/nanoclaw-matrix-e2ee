@@ -215,8 +215,8 @@ either direction.
 MIT — see [LICENSE](LICENSE).
 
 This adapter is written against NanoClaw's `ChannelAdapter` interface and derives its channel defaults and
-overall structure from NanoClaw, which is MIT licensed, © 2026 Gavriel. That attribution is preserved in the
-LICENSE file.
+overall structure from NanoClaw, which is MIT licensed, © 2026 Gavriel. See [NOTICE](NOTICE) for the full
+attribution.
 
 `matrix-bot-sdk` (MIT) and `@matrix-org/matrix-sdk-crypto-nodejs` (Apache-2.0) are consumed as npm
 dependencies; their source is not redistributed here. Both licenses are compatible with MIT.
