@@ -182,6 +182,28 @@ Worth knowing before you deploy this:
   `request` HTTP stack. This is a real tradeoff against `matrix-js-sdk`, which is stable and actively
   developed but cannot persist crypto state on Node.
 
+## Backing up
+
+Back up `data/matrix-bot-sdk/` — the whole directory is well under a megabyte:
+
+```
+data/matrix-bot-sdk/
+  creds.json                        access token + device id (mode 600)
+  bot.json                          sync state
+  crypto/matrix-sdk-crypto.sqlite3  Olm/Megolm store
+```
+
+This is the better answer here than Matrix key backup, and not merely because key backup is
+unavailable on this SDK. Restoring a key backup gives you back your room keys but leaves the bot
+as a **new device** — the exact condition this adapter exists to avoid, so every peer would see
+an unverified device again. Restoring this directory brings back the device identity too, and
+nothing downstream notices the outage happened.
+
+Treat the backup as you would `.env`: it contains a live access token.
+
+If you lose it, nothing is corrupted — the bot logs in fresh, mints a new device and carries on.
+It just cannot read anything encrypted before that point.
+
 ## Rollback
 
 Switch the import in `src/channels/index.ts` back to `./matrix.js`, rebuild, restart. Nothing else changes —
