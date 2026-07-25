@@ -61,6 +61,26 @@ FluffyChat, Cinny, Element and Element X.
 
 ## Install
 
+### With the skill (recommended)
+
+This repo ships a NanoClaw install skill that performs every step below, including the credential
+prompts. From your NanoClaw checkout:
+
+```bash
+mkdir -p .claude/skills/add-matrix-e2ee
+curl -fsSL https://raw.githubusercontent.com/JakiCuk/nanoclaw-matrix-e2ee/main/skills/add-matrix-e2ee/SKILL.md \
+  -o .claude/skills/add-matrix-e2ee/SKILL.md
+```
+
+Then run `/add-matrix-e2ee`. The skill is written with `nc:` directives, so it applies identically
+whether an agent reads the prose or the setup engine (`scripts/skill-apply.ts`) runs it, and every
+step is idempotent — re-running is safe.
+
+It pauses on one decision that is yours to make: allowing the crypto package's install script
+(step 4 below).
+
+### Manually
+
 **1. Copy the adapter into your NanoClaw checkout:**
 
 ```bash
@@ -153,7 +173,9 @@ Worth knowing before you deploy this:
   It does not learn the question or the option labels — those stay inside the encrypted message body. If that
   matters for your threat model, don't use clickable choices for sensitive approvals.
 - **No key backup.** The bot cannot read encrypted history from before its device existed. New conversation
-  is unaffected. Migrating from another adapter means the bot starts with no history.
+  is unaffected. `matrix-bot-sdk` 0.8.0 exposes no key-backup or secret-storage API at all — there is no
+  `restoreKeyBackup`, no `importRoomKeys` — so a recovery key from another client cannot be used to import
+  that history either. Migrating from another adapter means starting with a clean slate.
 - **Maximum 10 options** per question (one keycap each).
 - **Markdown support is a subset.** Tables, blockquotes and nested lists pass through as literal text.
 - **matrix-bot-sdk is beta** (0.8.0) and has a single maintainer, and it still depends on the deprecated
